@@ -11,6 +11,7 @@ import "screens/vegeta.dart";
 import "screens/goku.dart";
 import "screens/snakeway.dart";
 import "screens/gotenks.dart";
+import "partials/gametile.dart";
 
 void main(){
   runApp(MaterialApp(
@@ -25,100 +26,44 @@ class MyApp extends StatelessWidget{
   @override
   
   Widget build(BuildContext context){
-    var screenWidth=MediaQuery.of(context).size.width;
-    var screenHeight=MediaQuery.of(context).size.width;
     return Scaffold(
         body:Center(
           child: Column(
             mainAxisAlignment:MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                margin:const EdgeInsets.only(
-                  left:62,
-                  right:62,
-                  top:20
-                ),
-                height:screenHeight/6,
-                decoration:BoxDecoration(
-                  image:const DecorationImage(image:const AssetImage("assets/images/vegetamenu.png"), opacity:0.5),
-                  borderRadius:BorderRadius.circular(20)
-                ),
-                child:Row(
-                  children:[
-                    Expanded(
-                      child:Container(
-                        margin:const EdgeInsets.only(left: 20),
-                        child:const StrokeText(
-                        strokeWidth: 2,
-                        text:"Vegeta's Workout", 
-                        textStyle:TextStyle(
-                        fontFamily:"Tahoma",
-                        fontWeight:FontWeight.bold,
-                        color:Colors.blue,
-                        fontSize:20,
-                      ))
-                      )
-                    ),
-                    Container(
-                      margin:EdgeInsets.only(right: 25, bottom:20),
-                      child:IconButton(
-                      icon:const Icon(Icons.arrow_drop_down, size:60, color:Colors.blue),
-                      onPressed:(){
-                          showModalBottomSheet<void>(
-                            context:context,
-                            builder:(BuildContext context){
-                              return Container(
-                                height:screenHeight,
-                                width:screenWidth,
-                                color:Color.fromARGB(255, 0, 57, 104),
-                                child:Column(
-                                  mainAxisAlignment:MainAxisAlignment.center,
-                                  children:[
-                                    Container(
-                                      padding:EdgeInsets.all(20),
-                                      margin:EdgeInsets.all(20),
-                                      height:screenHeight/2,
-                                      width:screenWidth,
-                                      decoration:BoxDecoration(
-                                        color:Colors.white,
-                                        borderRadius:BorderRadius.circular(15)
-                                      ),
-                                      child:Text("That damn Kakarot, he is always one step ahead of me. Can you help me with my training? I promise you I can surpass that bastard if i do 1000 push-ups...",
-                                      style:TextStyle(
-                                        fontSize:20
-                                      ))
-                                    ),
-                                      Container(
-                                          margin:EdgeInsets.all(20),
-                                          width:screenWidth,
-                                          height:screenHeight/5,
-                                          child:ElevatedButton(
-                                          child:Text("Play", style:TextStyle(
-                                            fontSize:20
-                                          )),
-                                          onPressed:(){
-                                            Navigator.push(
-                                            context,
-                                            MaterialPageRoute(builder:(context)=>VegetaPlay())
-                                            );
-                                          }
-                                        )
-                                        )
-                                  ]
-                                )
-                              );
-                            }
-                          );
-                      }
-                    )
-                    )
-                  ]
-                )
+              Gametile(
+                screen:VegetaPlay(),
+                image:"assets/images/vegetamenu.png",
+                title:"Vegeta's Workout",
+                color:Colors.blue,
+                text:"That damn Kakarot. I promise you I can surpass that bastard once I do 1000 push-ups...",
+                buttonColor:Color.fromARGB(255, 15, 112, 192)
               ),
-  
-    
-              
+              Gametile(
+                screen:GokuPlay(),
+                image:"assets/images/gokumenu.png",
+                title:"Goku's Lunch Time",
+                color:Colors.orange,
+                text:"Maan I'm hungry! I need to eat so I can go to King Kai's planet to train. I wonder what would happen if I eat all the food...",
+                buttonColor:Color.fromARGB(255, 255, 134, 64)
+              ),
+              Gametile(
+                screen:SnakeWayPlay(),
+                image:"assets/images/snakewaymenu.png",
+                title:"Snakeway Run",
+                color:Color.fromARGB(255, 231, 214, 55),
+                text:"The Saiyans are coming to Earth! I gotta hurry and run as fast as I can to arrive at King Kai's planet!",
+                buttonColor:Color.fromARGB(255, 211, 197, 74),
+              ),
+              Gametile(
+                screen:GotenksPlay(),
+                image:"assets/images/gotenksmenu.png",
+                title:"Superghost Invasion",
+                color:Colors.lightBlue,
+                text:"Majin Buu is SUPER strong! I need to make an army of ghosts so I can defeat him once and for all! Maybe 50?",
+                buttonColor:Colors.blueAccent
+              )
             ],
           ),
         )
