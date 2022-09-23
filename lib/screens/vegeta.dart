@@ -47,10 +47,8 @@ class VegetaGame extends FlameGame with TapDetector{
 
   int tap=0;
 
-  var fastestMarathon=Duration(seconds: 500);
 
-
-  TextPaint countText=TextPaint(style: TextStyle(
+  TextPaint countText=TextPaint(style: const TextStyle(
     fontSize:30,
     color:Colors.black,
     fontWeight:FontWeight.bold

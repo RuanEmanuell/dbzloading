@@ -11,10 +11,10 @@ class SnakeWayPlay extends StatelessWidget{
   Widget build(BuildContext context){
     return Scaffold(
       appBar:AppBar(
-        backgroundColor:Color.fromRGBO(193, 73, 169,1),
+        backgroundColor:const Color.fromRGBO(193, 73, 169,1),
         elevation:0,
         leading:IconButton(
-          icon:Icon(Icons.arrow_back, size:40),
+          icon:const Icon(Icons.arrow_back, size:40),
           color:Colors.black,
           onPressed:(){
             Navigator.pop(context);
@@ -47,7 +47,7 @@ class SnakeWayGame extends FlameGame with TapDetector{
   int count=1000;
  
 
-   TextPaint countText=TextPaint(style: TextStyle(
+   TextPaint countText=TextPaint(style: const TextStyle(
     fontSize:20,
     color:Colors.black,
     fontWeight:FontWeight.bold
@@ -70,7 +70,7 @@ class SnakeWayGame extends FlameGame with TapDetector{
     ParallaxComponent sky=await ParallaxComponent.load([
       ParallaxImageData("sky.png"),
     ],
-    baseVelocity:Vector2(5, 0),
+    baseVelocity:Vector2(2.5, 0),
     velocityMultiplierDelta:Vector2.all(2)
     );
 
