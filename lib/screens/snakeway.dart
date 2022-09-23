@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/sprite.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import "package:flame/game.dart";
 import "package:flame/parallax.dart";
@@ -10,13 +11,14 @@ class SnakeWayPlay extends StatelessWidget{
   Widget build(BuildContext context){
     return Scaffold(
       appBar:AppBar(
-        backgroundColor:Color.fromRGBO(227, 102, 204,1),
+        backgroundColor:Color.fromRGBO(193, 73, 169,1),
         elevation:0,
         leading:IconButton(
           icon:Icon(Icons.arrow_back, size:40),
           color:Colors.black,
           onPressed:(){
             Navigator.pop(context);
+            FlameAudio.bgm.stop();
           }
         )
       ),
@@ -36,6 +38,7 @@ class SnakeWayGame extends FlameGame with TapDetector{
   late SpriteComponent path;
   late SpriteComponent minigoku;
   late SpriteComponent minisnakeway;
+  late SpriteComponent endingBackground;
 
   double gokuSize=100;
 
@@ -84,7 +87,7 @@ class SnakeWayGame extends FlameGame with TapDetector{
   
     goku=SpriteAnimationComponent()
     ..animation=idleAnimation
-    ..y=screenHeight-250
+    ..y=screenHeight-240
     ..x=screenWidth-100
     ..size=Vector2(gokuSize, gokuSize*1.5);
 
@@ -92,8 +95,8 @@ class SnakeWayGame extends FlameGame with TapDetector{
 
     minisnakeway=SpriteComponent()
     ..sprite=await loadSprite("minisnakeway.png")
-    ..y=screenHeight-600
-    ..x=screenWidth-350
+    ..y=screenHeight-500
+    ..x=screenWidth-335
     ..size=Vector2(300, 60);
 
     add(minisnakeway);
@@ -101,11 +104,14 @@ class SnakeWayGame extends FlameGame with TapDetector{
 
     minigoku=SpriteComponent()
     ..sprite=await loadSprite("gokuhead.png")
-    ..y=screenHeight-590
+    ..y=screenHeight-490
     ..x=screenWidth-300
     ..size=Vector2(60, 50);
 
     add(minigoku);
+
+    FlameAudio.bgm.stop();
+    FlameAudio.bgm.play("snakeway.mp3");
 
 
   }
@@ -126,25 +132,30 @@ class SnakeWayGame extends FlameGame with TapDetector{
    @override
   void render(Canvas canvas){
     super.render(canvas);
-    countText.render(canvas, "Kilometers left: ${count.toString()}", Vector2(size[0]-285, size[1]-520));
+    if(count>0){
+    countText.render(canvas, "Kilometers left: ${count.toString()}", Vector2(size[0]-275, size[1]-420));
+    }
   }
 
 
 
   @override
-  void onTap() {
+  void onTap() async{
     tap++;
     if(tap>1){
       tap=0;
-      if(count<500){
-      count-=2;
-      goku.x-=0.5;
-      minigoku.x+=0.2;
-      }else{
         count-=3;
-        goku.x-=0.75;
-        minigoku.x+=0.3;
-      }
+        goku.x-=0.8;
+        minigoku.x+=0.5;
+    }
+    if(count<=0){
+      endingBackground=SpriteComponent()
+      ..sprite=await loadSprite("snakewayending.png")
+      ..size=size;
+
+      add(endingBackground);
+      FlameAudio.bgm.stop();
+      FlameAudio.bgm.play("endingmusic.mp3");
     }
    
   }

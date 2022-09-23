@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/material.dart';
+import 'package:flame_audio/flame_audio.dart';
 import "package:flame/game.dart";
 
 class GokuPlay extends StatelessWidget{
@@ -16,6 +19,7 @@ class GokuPlay extends StatelessWidget{
           color:Colors.black,
           onPressed:(){
             Navigator.pop(context);
+            FlameAudio.bgm.stop();
           }
         )
       ),
@@ -36,6 +40,7 @@ class GokuGame extends FlameGame with TapDetector{
   late SpriteAnimationComponent goku;
   late SpriteComponent background;
   late SpriteComponent bowl;
+  late SpriteComponent endingBackground;
 
   double gokuSize=350;
 
@@ -43,8 +48,6 @@ class GokuGame extends FlameGame with TapDetector{
   int count=0;
   int previousCount=0;
   bool end=false;
-
-
 
   @override
   Future<void> onLoad() async{
@@ -73,6 +76,9 @@ class GokuGame extends FlameGame with TapDetector{
 
     add(goku);
 
+    FlameAudio.bgm.stop();
+    FlameAudio.bgm.play("goku.mp3");
+
   }
 
 
@@ -93,7 +99,12 @@ class GokuGame extends FlameGame with TapDetector{
   @override
   void onTap() async {
     final bowlHeight=size[1]-300;
+
+    if(end==false){
     tap++;
+    }
+
+
     if(tap>1){
       tap=0;
       count++;
@@ -111,8 +122,16 @@ class GokuGame extends FlameGame with TapDetector{
       previousCount=count;
     }
 
-    if(count>1000){
+    if(count>=size[1]/2){
       end=true;
+
+      endingBackground=SpriteComponent()
+      ..sprite=await loadSprite("gokuending.png")
+      ..size=size;
+
+      add(endingBackground);
+      FlameAudio.bgm.stop();
+      FlameAudio.bgm.play("endingmusic.mp3");
     }
 
 

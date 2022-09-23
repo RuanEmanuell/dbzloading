@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/sprite.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import "package:flame/game.dart";
 import 'dart:math';
@@ -17,6 +18,7 @@ class GotenksPlay extends StatelessWidget{
           color:Colors.black,
           onPressed:(){
             Navigator.pop(context);
+            FlameAudio.bgm.stop();
           }
         )
       ),
@@ -35,6 +37,8 @@ class GotenksGame extends FlameGame with TapDetector{
   late SpriteAnimationComponent gotenks;
   late SpriteComponent background;
   late SpriteComponent ghost;
+  late SpriteComponent endingBackground;
+
 
   double gotenksSize=150;
 
@@ -72,6 +76,9 @@ class GotenksGame extends FlameGame with TapDetector{
     ..size=Vector2(gotenksSize, gotenksSize*1.5);
 
     add(gotenks);
+
+    FlameAudio.bgm.stop();
+    FlameAudio.bgm.play("gotenks.mp3");
 
   }
 
@@ -119,6 +126,17 @@ class GotenksGame extends FlameGame with TapDetector{
       add(ghost);
       
       previousCount=count;
+    }
+
+    if(count>50){
+      endingBackground=SpriteComponent()
+      ..sprite=await loadSprite("gotenksending.png")
+      ..size=size;
+
+      add(endingBackground);
+
+      FlameAudio.bgm.stop();
+      FlameAudio.bgm.play("endingmusic.mp3");
     }
 
   }

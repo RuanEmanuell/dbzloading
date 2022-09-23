@@ -1,22 +1,27 @@
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/sprite.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import "package:flame/game.dart";
+import 'dart:async';
+
 
 
 class VegetaPlay extends StatelessWidget{
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
       appBar:AppBar(
-        backgroundColor:Color.fromRGBO(53, 113, 252,1),
+        backgroundColor:Color.fromRGBO(53, 113, 252, 1),
         elevation:0,
         leading:IconButton(
           icon:Icon(Icons.arrow_back, size:40),
           color:Colors.black,
           onPressed:(){
             Navigator.pop(context);
+            FlameAudio.bgm.stop();
           }
         )
       ),
@@ -34,18 +39,25 @@ class VegetaGame extends FlameGame with TapDetector{
   late SpriteAnimationComponent vegeta;
   late SpriteComponent background;
   late SpriteComponent ballon;
+  late SpriteComponent endingBackground;
 
   double vegetaSize=200;
 
+  int count=0;
+
   int tap=0;
 
-  int count=0;
+  var fastestMarathon=Duration(seconds: 500);
+
 
   TextPaint countText=TextPaint(style: TextStyle(
     fontSize:30,
     color:Colors.black,
     fontWeight:FontWeight.bold
   ));
+
+
+  
 
  
 
@@ -83,9 +95,10 @@ class VegetaGame extends FlameGame with TapDetector{
      ..size=Vector2(200,200);
 
      add(ballon);
+
+    FlameAudio.bgm.stop();
+    FlameAudio.bgm.play("vegeta.mp3");
     
-
-
   }
 
 
@@ -98,24 +111,42 @@ class VegetaGame extends FlameGame with TapDetector{
       }else{
         vegeta.animation=tapAnimation;
       }
+
    
   }
 
   @override
   void render(Canvas canvas){
     super.render(canvas);
-    countText.render(canvas, count.toString(), Vector2(vegeta.x+250, vegeta.y+105));
+    if(count<1000){
+      countText.render(canvas, count.toString(), Vector2(vegeta.x+250, vegeta.y+105));
+    }
   }
 
 
 
 
   @override
-  void onTap() {
+  void onTap() async{
+
     tap++;
+
     if(tap>1){
       tap=0;
       count++;
+    }
+
+    if(count>=1000){
+
+      endingBackground=SpriteComponent()
+      ..sprite=await loadSprite("vegetaending.png")
+      ..size=size;
+
+      add(endingBackground);
+
+      FlameAudio.bgm.stop();
+      FlameAudio.bgm.play("endingmusic.mp3");
+
     }
    
   }
