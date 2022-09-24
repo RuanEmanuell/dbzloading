@@ -8,6 +8,8 @@ import "package:flame/parallax.dart";
 
 //SnakeWay game screen
 class SnakeWayPlay extends StatelessWidget{
+  const SnakeWayPlay({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context){
     return Scaffold(

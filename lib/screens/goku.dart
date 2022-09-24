@@ -9,6 +9,8 @@ import "package:flame/game.dart";
 
 //Goku game screen
 class GokuPlay extends StatelessWidget{
+  const GokuPlay({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context){
     return Scaffold(

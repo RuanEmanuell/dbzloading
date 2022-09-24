@@ -9,7 +9,7 @@ import 'dart:async';
 
 //Vegeta game screen
 class VegetaPlay extends StatelessWidget{
-
+  const VegetaPlay({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context){
     return Scaffold(

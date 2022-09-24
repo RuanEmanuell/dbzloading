@@ -9,6 +9,8 @@ import 'dart:math';
 
 //Gotenks game screen
 class GotenksPlay extends StatelessWidget{
+  const GotenksPlay({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context){
     return Scaffold(

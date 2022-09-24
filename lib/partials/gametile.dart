@@ -6,14 +6,14 @@ import 'package:stroke_text/stroke_text.dart';
 
 class Gametile extends StatelessWidget{
 
-  Gametile({
+  Gametile({Key? key, 
     this.screen,
     this.image,
     this.title,
     this.color,
     this.text,
     this.buttonColor
-  });
+  }) : super(key: key);
 
   var screen, image, title, color , text, buttonColor;
 
