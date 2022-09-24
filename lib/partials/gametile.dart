@@ -23,7 +23,7 @@ class Gametile extends StatelessWidget{
                 margin:const EdgeInsets.only(
                   left:62,
                   right:62,
-                  top:30
+                  top:20
                 ),
                 width:screenWidth,
                 height:screenWidth/6,

@@ -11,7 +11,7 @@ class SnakeWayPlay extends StatelessWidget{
   Widget build(BuildContext context){
     return Scaffold(
       appBar:AppBar(
-        backgroundColor:const Color.fromRGBO(193, 73, 169,1),
+        backgroundColor:const Color.fromRGBO(209, 55, 180, 1),
         elevation:0,
         leading:IconButton(
           icon:const Icon(Icons.arrow_back, size:40),
