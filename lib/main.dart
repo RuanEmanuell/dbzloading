@@ -19,6 +19,8 @@ void main(){
   );
 }
 
+//Main menu screen
+
 class MyApp extends StatefulWidget{
   @override
   _MyApp createState()=> _MyApp();
@@ -27,16 +29,20 @@ class MyApp extends StatefulWidget{
 
 class _MyApp extends State<MyApp>{
 
+  //Function to play music on the main menu
   void startMusic(){
     FlameAudio.bgm.play("endingmusic.mp3");
   }
+
   @override
   void initState(){
     super.initState();
     startMusic();
   }
+
   @override
   Widget build(BuildContext context){
+    //Taking the screen height and width of the device
     var screenHeight=MediaQuery.of(context).size.height;
     var screenWidth=MediaQuery.of(context).size.width;
     return Scaffold(

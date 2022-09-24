@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import "package:flame/game.dart";
 import 'dart:math';
 
+
+//Gotenks game screen
 class GotenksPlay extends StatelessWidget{
   @override
   Widget build(BuildContext context){
@@ -53,6 +55,8 @@ class GotenksGame extends FlameGame with TapDetector{
   Future<void> onLoad() async{
     await super.onLoad();
 
+    //Loading sprites and the music
+
     final screenWidth=size[0];
     final screenHeight=size[1];
 
@@ -87,6 +91,7 @@ class GotenksGame extends FlameGame with TapDetector{
   void update(double dt){
     super.update(dt);
 
+      //Defining which sprite will be showed based on how many times the player tapped the screen
       if(tap==0){
         gotenks.animation=tap1Animation;
       }
@@ -110,11 +115,14 @@ class GotenksGame extends FlameGame with TapDetector{
 
     
     tap++;
+
+    //When the player tap 3 times, increase the var count to spawn the ghost
     if(tap>2){
       tap=0;
       count++;
     }
 
+    //Defining the random place the ghost will spawn
     if(count==previousCount+1){
 
       ghost=SpriteComponent()
@@ -128,6 +136,7 @@ class GotenksGame extends FlameGame with TapDetector{
       previousCount=count;
     }
 
+    //Defining the win conditions and showing the win screen
     if(count>50){
       endingBackground=SpriteComponent()
       ..sprite=await loadSprite("gotenksending.png")

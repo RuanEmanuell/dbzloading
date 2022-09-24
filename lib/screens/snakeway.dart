@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import "package:flame/game.dart";
 import "package:flame/parallax.dart";
 
+//SnakeWay game screen
 class SnakeWayPlay extends StatelessWidget{
   @override
   Widget build(BuildContext context){
@@ -57,6 +58,8 @@ class SnakeWayGame extends FlameGame with TapDetector{
   @override
   Future<void> onLoad() async{
     await super.onLoad();
+
+    //Loading sprites and the music
 
     final screenWidth=size[0];
     final screenHeight=size[1];
@@ -120,7 +123,8 @@ class SnakeWayGame extends FlameGame with TapDetector{
   @override
   void update(double dt){
     super.update(dt);
-
+    
+      //Defining which sprite will be showed based on how many times the player tapped the screen
       if(tap==0){
         goku.animation=idleAnimation;
       }else{
@@ -132,6 +136,7 @@ class SnakeWayGame extends FlameGame with TapDetector{
    @override
   void render(Canvas canvas){
     super.render(canvas);
+    //Rendering on the canvas how much km left based on the count var
     if(count>0){
     countText.render(canvas, "Kilometers left: ${count.toString()}", Vector2(size[0]-275, size[1]-420));
     }
@@ -141,13 +146,18 @@ class SnakeWayGame extends FlameGame with TapDetector{
 
   @override
   void onTap() async{
+
     tap++;
+
+    //Moving the character and decreasing the count when the player tap 2 times
     if(tap>1){
       tap=0;
         count-=3;
         goku.x-=0.8;
         minigoku.x+=0.5;
     }
+
+    //Defining the win conditions and showing the win screen
     if(count<=0){
       endingBackground=SpriteComponent()
       ..sprite=await loadSprite("snakewayending.png")

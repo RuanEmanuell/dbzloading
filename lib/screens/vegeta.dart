@@ -7,7 +7,7 @@ import "package:flame/game.dart";
 import 'dart:async';
 
 
-
+//Vegeta game screen
 class VegetaPlay extends StatelessWidget{
 
   @override
@@ -55,13 +55,12 @@ class VegetaGame extends FlameGame with TapDetector{
   ));
 
 
-  
-
- 
 
   @override
   Future<void> onLoad() async{
     await super.onLoad();
+
+    //Loading sprites and the music
 
     final screenWidth=size[0];
     final screenHeight=size[1];
@@ -104,6 +103,7 @@ class VegetaGame extends FlameGame with TapDetector{
   void update(double dt){
     super.update(dt);
 
+      //Defining which sprite will be showed based on how many times the player tapped the screen
       if(tap==0){
         vegeta.animation=idleAnimation;
       }else{
@@ -116,6 +116,7 @@ class VegetaGame extends FlameGame with TapDetector{
   @override
   void render(Canvas canvas){
     super.render(canvas);
+    //Rendering the count of push-ups
     if(count<1000){
       countText.render(canvas, count.toString(), Vector2(vegeta.x+250, vegeta.y+105));
     }
@@ -134,6 +135,7 @@ class VegetaGame extends FlameGame with TapDetector{
       count++;
     }
 
+    //Defining the win conditions(1000 push-ups on the counter) and showing the win screen
     if(count>=1000){
 
       endingBackground=SpriteComponent()

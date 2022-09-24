@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:stroke_text/stroke_text.dart';
 
+
+//Gametile of the menu screen
+
 class Gametile extends StatelessWidget{
 
   Gametile({

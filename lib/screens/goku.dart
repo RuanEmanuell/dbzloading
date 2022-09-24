@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flame_audio/flame_audio.dart';
 import "package:flame/game.dart";
 
+//Goku game screen
 class GokuPlay extends StatelessWidget{
   @override
   Widget build(BuildContext context){
@@ -36,7 +37,6 @@ class GokuGame extends FlameGame with TapDetector{
 
   late SpriteAnimation bowlZeroTapAnimation;
  
-
   late SpriteAnimationComponent goku;
   late SpriteComponent background;
   late SpriteComponent bowl;
@@ -52,6 +52,8 @@ class GokuGame extends FlameGame with TapDetector{
   @override
   Future<void> onLoad() async{
     await super.onLoad();
+
+    //Loading sprites and the music
 
     final screenWidth=size[0];
     final screenHeight=size[1];
@@ -86,6 +88,7 @@ class GokuGame extends FlameGame with TapDetector{
   void update(double dt){
     super.update(dt);
 
+     //Defining which sprite will be showed based on how many times the player tapped the screen
       if(tap==0){
         goku.animation=idleAnimation;
       }else{
@@ -100,16 +103,17 @@ class GokuGame extends FlameGame with TapDetector{
   void onTap() async {
     final bowlHeight=size[1]-300;
 
+    //Protection to not spawn more bowls when the game is over
     if(end==false){
     tap++;
     }
-
 
     if(tap>1){
       tap=0;
       count++;
     }
 
+    //Making the bowls appear when the player tap 10 times on the screen
     if(count==previousCount+10){
       bowl=SpriteComponent()
       ..sprite=await loadSprite("bowl.png")
@@ -122,6 +126,7 @@ class GokuGame extends FlameGame with TapDetector{
       previousCount=count;
     }
 
+    //Defining the win conditions and showing the win screen
     if(count>=size[1]/2){
       end=true;
 
