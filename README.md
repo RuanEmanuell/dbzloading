@@ -16,3 +16,4 @@ Here are some screenshots of the project running:
 
 ### This app was made for study purposes only!
 Hope you enjoy! :)
+Feel free to modify!
