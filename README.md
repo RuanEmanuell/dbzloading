@@ -1,3 +1,5 @@
+# Veja a versão em Português <a href="README-ptbr.md">aqui</a>
+
 ### LoadingZ
 
 A recreation of <a href="https://youtu.be/KfFnMh-KYHI?t=550">some loading screens mini-games from old Dragon Ball games</a>, made in Flutter, using the <a href="https://pub.dev/packages/flame">Flame Library</a>.
